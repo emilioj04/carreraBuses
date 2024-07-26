@@ -9,25 +9,25 @@ import java.net.URL;
 public class Game {
     private Bus[] buses;
     private GamePanel panel;
-    private int metaX = 890; // Posición inicial x de la meta
-    private int metaSpeed = 10; // Velocidad de avance de la meta
-    private int metaMovementCount = 0; // Contador de movimientos de la meta
-    private boolean[] finished; // Indicador de si cada bus ha terminado
-    private String winner; // Almacena el bus ganador
-    private master window; // Referencia a la ventana principal
-    private int extraMoveCount = 0; // Contador de movimientos adicionales
-    private static final int EXTRA_MOVES = 100; // Número de movimientos adicionales
-    private Clip audioClip; // Clip de audio para la reproducción
+    private int metaX = 890;
+    private int metaSpeed = 10;
+    private int metaMovementCount = 0;
+    private boolean[] finished;
+    private String winner;
+    private master window;
+    private int extraMoveCount = 0;
+    private static final int EXTRA_MOVES = 100;
+    private Clip audioClip;
 
     public Game(master window) {
         this.window = window;
         buses = new Bus[2];
-        buses[0] = new Bus(100, 120, 5); // Bus rojo
-        buses[1] = new Bus(100, 330, 5); // Bus verde
-        finished = new boolean[2]; // Inicializar el estado de los buses
+        buses[0] = new Bus(100, 120, 5);
+        buses[1] = new Bus(100, 330, 5);
+        finished = new boolean[2];
         panel = new GamePanel(this);
-        winner = null; // Inicializar sin ganador
-        initAudio(); // Inicializar el audio
+        winner = null;
+        initAudio();
     }
 
     private void initAudio() {
@@ -46,22 +46,22 @@ public class Game {
     }
 
     public void start() {
-        window.addKeyListener(new KeyHandler(this)); // Agregar KeyHandler al JFrame
+        window.addKeyListener(new KeyHandler(this));
         window.setVisible(true);
 
         if (audioClip != null) {
-            audioClip.setFramePosition(0); // Rewind to the beginning
-            audioClip.start(); // Start playing
+            audioClip.setFramePosition(0);
+            audioClip.start();
         }
 
         Timer timer = new Timer(100, e -> {
-            metaMovementCount++; // Incrementar el contador de movimientos de la meta
+            metaMovementCount++;
             if (metaMovementCount >= 200) {
-                moveMeta(); // Mover la meta cada 200 iteraciones
-                metaMovementCount = 0; // Reiniciar el contador
+                moveMeta();
+                metaMovementCount = 0;
             }
-            moveBusesAutomatically(); // Mover los buses automáticamente si han terminado
-            panel.repaint(); // Volver a dibujar el panel
+            moveBusesAutomatically();
+            panel.repaint();
         });
         timer.start();
     }
@@ -73,33 +73,30 @@ public class Game {
     }
 
     private void moveMeta() {
-        // Mover la meta hacia la derecha con velocidad metaSpeed
         metaX += metaSpeed;
     }
 
     public void moveBusRojo() {
-        // Mover el bus rojo hacia la derecha si no ha alcanzado la meta
         if (!finished[0] && buses[0].getX() < metaX) {
             buses[0].moveRight();
             if (buses[0].getX() >= metaX) {
-                finished[0] = true; // Marcar el bus rojo como terminado
+                finished[0] = true;
                 if (winner == null) {
-                    winner = "Ganó Bus Rojo"; // Establecer ganador
-                    window.setResultadoCarrera(winner); // Mostrar el resultado en la ventana
+                    winner = "Ganó Bus Rojo";
+                    window.setResultadoCarrera(winner);
                 }
             }
         }
     }
 
     public void moveBusVerde() {
-        // Mover el bus verde hacia la derecha si no ha alcanzado la meta
         if (!finished[1] && buses[1].getX() < metaX) {
             buses[1].moveRight();
             if (buses[1].getX() >= metaX) {
-                finished[1] = true; // Marcar el bus verde como terminado
+                finished[1] = true;
                 if (winner == null) {
-                    winner = "Ganó Bus Verde"; // Establecer ganador
-                    window.setResultadoCarrera(winner); // Mostrar el resultado en la ventana
+                    winner = "Ganó Bus Verde";
+                    window.setResultadoCarrera(winner);
                 }
             }
         }
