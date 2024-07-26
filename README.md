@@ -1,6 +1,8 @@
 # carreraBuses
 Juego de carrera de buses para dos personas
 
+Integrantes: Josue Torres, Emilio Jaramillo, Alexis Roman, Marco Chiliguano, Daniel Sanchez
+
 Diagrama de clases del Juego Carrera De Buses(desactualizado)
 
 
