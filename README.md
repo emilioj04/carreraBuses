@@ -15,4 +15,3 @@ ejecucion del juego Carrera de Buses
 
 Diagrama de clases del juego Carrera de Buses Actualizado
 
-![WhatsApp Image 2024-07-26 at 10 21 19 AM](https://github.com/user-attachments/assets/98e1a92f-b614-41e5-aa26-130c3c581ef6)
