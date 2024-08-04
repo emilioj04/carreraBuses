@@ -1,20 +1,16 @@
 package carrerabuses;
 
 public class Bus {
-    private int x, y, speed;
+    private int x, y, velocidad;
 
-    public Bus(int x, int y, int speed) {
+    public Bus(int x, int y, int velocidad) {
         this.x = x;
         this.y = y;
-        this.speed = speed;
+        this.velocidad = velocidad; 
     }
 
-    public void moveLeft() {
-        x -= speed;
-    }
-
-    public void moveRight() {
-        x += speed;
+    public void moverBus() {
+        x += velocidad;
     }
 
     public int getX() {
@@ -25,8 +21,7 @@ public class Bus {
         return y;
     }
     
-    public int getSpeed (){
-        return speed;
-    }   
-    
+    public int getSpeed() {
+        return velocidad;
+    }
 }

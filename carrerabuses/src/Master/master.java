@@ -11,27 +11,27 @@ import carrerabuses.*;
  */
 public class master extends javax.swing.JFrame {
 
-    private Juego game;
+    private Juego juego;
     
         
     public master() {
         initComponents();
-        initGame();
+        iniciarJuego();
     }
 
-    private void initGame() {
-        game = new Juego(this);
-        gamePanel.setLayout(new java.awt.BorderLayout());
-        gamePanel.add(game.getPanel(), java.awt.BorderLayout.CENTER);
-       
-        game.start();
-        
-        addKeyListener(new manejoTeclas(game));
+    private void iniciarJuego() {
+        juego = new Juego(this);
+        panelJuego.setLayout(new java.awt.BorderLayout());
+        panelJuego.add(juego.getPanel(), java.awt.BorderLayout.CENTER);
+
+        juego.iniciar();
+
+        addKeyListener(new manejoTeclas(juego)); 
         setFocusable(true); 
-        requestFocusInWindow();
+        requestFocusInWindow(); 
     }
 
-    public void setResultadoCarrera(String resultado) {
+    public void establecerResultadoCarrera(String resultado) {
         resultadoCarrera.setText(resultado);
     }
     
@@ -44,7 +44,7 @@ public class master extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        gamePanel = new javax.swing.JPanel();
+        panelJuego = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         resultadoCarrera = new javax.swing.JTextArea();
@@ -52,17 +52,17 @@ public class master extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        gamePanel.setBackground(new java.awt.Color(255, 255, 255));
-        gamePanel.setForeground(new java.awt.Color(255, 204, 0));
+        panelJuego.setBackground(new java.awt.Color(255, 255, 255));
+        panelJuego.setForeground(new java.awt.Color(255, 204, 0));
 
-        javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
-        gamePanel.setLayout(gamePanelLayout);
-        gamePanelLayout.setHorizontalGroup(
-            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelJuegoLayout = new javax.swing.GroupLayout(panelJuego);
+        panelJuego.setLayout(panelJuegoLayout);
+        panelJuegoLayout.setHorizontalGroup(
+            panelJuegoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1330, Short.MAX_VALUE)
         );
-        gamePanelLayout.setVerticalGroup(
-            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelJuegoLayout.setVerticalGroup(
+            panelJuegoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 491, Short.MAX_VALUE)
         );
 
@@ -92,7 +92,7 @@ public class master extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1)
-                    .addComponent(gamePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelJuego, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -107,7 +107,7 @@ public class master extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
                     .addComponent(nuevoJuego, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(gamePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelJuego, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
@@ -117,11 +117,11 @@ public class master extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nuevoJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoJuegoActionPerformed
-        if (game != null) {
-            game.stopAudio(); // Detener el audio del juego anterior
+         if (juego != null) {
+            juego.detenerAudio(); 
         }
-        gamePanel.removeAll(); // Limpiar el panel del juego anterior
-        initGame(); // Inicializar un nuevo juego
+        panelJuego.removeAll(); 
+        iniciarJuego(); 
     }//GEN-LAST:event_nuevoJuegoActionPerformed
 
     /**
@@ -130,10 +130,10 @@ public class master extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel gamePanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton nuevoJuego;
+    private javax.swing.JPanel panelJuego;
     private javax.swing.JTextArea resultadoCarrera;
     // End of variables declaration//GEN-END:variables
 }

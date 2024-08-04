@@ -8,35 +8,35 @@ import java.net.URL;
 
 public class Juego {
     private Bus[] buses;
-    private GamePanel panel;
-    private int metaX = 890; // Posición inicial x de la meta
-    private int metaSpeed = 10; // Velocidad de avance de la meta
-    private int metaMovementCount = 0; // Contador de movimientos de la meta
-    private boolean[] finished; // Indicador de si cada bus ha terminado
-    private String winner; // Almacena el bus ganador
-    private master window; // Referencia a la ventana principal
-    private int extraMoveCount = 0; // Contador de movimientos adicionales
-    private static final int EXTRA_MOVES = 100; // Número de movimientos adicionales
-    private Clip audioClip; // Clip de audio para la reproducción
+    private PanelJuego panel;
+    private int metaX = 890;
+    private int metaVelocidad = 10;
+    private int contadorMovimientosMeta = 0;
+    private boolean[] finalizado;
+    private String ganador;
+    private master pantalla;
+    private int contadorMovimientosExtra = 0;
+    private static final int MOVIMIENTOS_EXTRA = 100;
+    private Clip clipAudio;
 
-    public Juego(master window) {
-        this.window = window;
+    public Juego(master pantalla) {
+        this.pantalla = pantalla;
         buses = new Bus[2];
-        buses[0] = new Bus(100, 120, 5); // Bus rojo
-        buses[1] = new Bus(100, 330, 5); // Bus verde
-        finished = new boolean[2]; // Inicializar el estado de los buses
-        panel = new GamePanel(this);
-        winner = null; // Inicializar sin ganador
-        initAudio(); // Inicializar el audio
+        buses[0] = new Bus(100, 120, 5);
+        buses[1] = new Bus(100, 330, 5);
+        finalizado = new boolean[2];
+        panel = new PanelJuego(this);
+        ganador = null;
+        iniciarAudio();
     }
 
-    private void initAudio() {
+    private void iniciarAudio() {
         try {
-            URL audioUrl = getClass().getResource("/audio/audio.wav");
-            if (audioUrl != null) {
-                AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioUrl);
-                audioClip = AudioSystem.getClip();
-                audioClip.open(audioStream);
+            URL urlAudio = getClass().getResource("/audio/audio.wav");
+            if (urlAudio != null) {
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(urlAudio);
+                clipAudio = AudioSystem.getClip();
+                clipAudio.open(audioStream);
             } else {
                 System.err.println("No se pudo cargar el archivo de audio.");
             }
@@ -45,75 +45,72 @@ public class Juego {
         }
     }
 
-    public void start() {
-        window.addKeyListener(new manejoTeclas(this)); // Agregar KeyHandler al JFrame
-        window.setVisible(true);
+    public void iniciar() {
+        panel.addKeyListener(new manejoTeclas(this)); // Cambiado a panel
+        pantalla.setVisible(true);      
 
-        if (audioClip != null) {
-            audioClip.setFramePosition(0); // Rewind to the beginning
-            audioClip.start(); // Start playing
+        if (clipAudio != null) {
+            clipAudio.setFramePosition(0);
+            clipAudio.start();
         }
 
         Timer timer = new Timer(100, e -> {
-            metaMovementCount++; // Incrementar el contador de movimientos de la meta
-            if (metaMovementCount >= 200) {
-                moveMeta(); // Mover la meta cada 200 iteraciones
-                metaMovementCount = 0; // Reiniciar el contador
+            contadorMovimientosMeta++;
+            if (contadorMovimientosMeta >= 200) {
+                moverMeta();
+                contadorMovimientosMeta = 0;
             }
-            moveBusesAutomatically(); // Mover los buses automáticamente si han terminado
-            panel.repaint(); // Volver a dibujar el panel
+            moverBusesAutomaticamente();
+            panel.repaint();
         });
         timer.start();
     }
 
-    public void stopAudio() {
-        if (audioClip != null && audioClip.isRunning()) {
-            audioClip.stop();
+    public void detenerAudio() {
+        if (clipAudio != null && clipAudio.isRunning()) {
+            clipAudio.stop();
         }
     }
 
-    private void moveMeta() {
-        // Mover la meta hacia la derecha con velocidad metaSpeed
-        metaX += metaSpeed;
+    private void moverMeta() {
+        metaX += metaVelocidad;
     }
 
-    public void moveBusRojo() {
-        // Mover el bus rojo hacia la derecha si no ha alcanzado la meta
-        if (!finished[0] && buses[0].getX() < metaX) {
-            buses[0].moveRight();
+    public void moverBusRojo() {
+        if (!finalizado[0] && buses[0].getX() < metaX) {
+            buses[0].moverBus();
             if (buses[0].getX() >= metaX) {
-                finished[0] = true; // Marcar el bus rojo como terminado
-                if (winner == null) {
-                    winner = "Ganó Bus Rojo"; // Establecer ganador
-                    window.setResultadoCarrera(winner); // Mostrar el resultado en la ventana
+                finalizado[0] = true;
+                if (ganador == null) {
+                    ganador = "Ganó Bus Rojo";
+                    pantalla.establecerResultadoCarrera(ganador);
                 }
             }
         }
     }
 
-    public void moveBusVerde() {
-        // Mover el bus verde hacia la derecha si no ha alcanzado la meta
-        if (!finished[1] && buses[1].getX() < metaX) {
-            buses[1].moveRight();
+    public void moverBusVerde() {
+        if (!finalizado[1] && buses[1].getX() < metaX) {
+            buses[1].moverBus();
             if (buses[1].getX() >= metaX) {
-                finished[1] = true; // Marcar el bus verde como terminado
-                if (winner == null) {
-                    winner = "Ganó Bus Verde"; // Establecer ganador
-                    window.setResultadoCarrera(winner); // Mostrar el resultado en la ventana
+                finalizado[1] = true;
+                if (ganador == null) {
+                    ganador = "Ganó Bus Verde";
+                    pantalla.establecerResultadoCarrera(ganador);
                 }
             }
         }
     }
 
-    private void moveBusesAutomatically() {
-        if (finished[0] || finished[1]) {
-            extraMoveCount++;
-            if (extraMoveCount <= EXTRA_MOVES) {
-                if (finished[0] && buses[0].getX() < metaX + 100) {
-                    buses[0].moveRight();
+    private void moverBusesAutomaticamente() {
+        if (finalizado[0] || finalizado[1]) {
+            contadorMovimientosExtra++;
+            if (contadorMovimientosExtra <= MOVIMIENTOS_EXTRA) {
+                if (finalizado[0] && buses[0].getX() < metaX + 100) {
+                    buses[0].moverBus();
                 }
-                if (finished[1] && buses[1].getX() < metaX + 100) {
-                    buses[1].moveRight();
+                if (finalizado[1] && buses[1].getX() < metaX + 100) {
+                    buses[1].moverBus();
                 }
             }
         }
@@ -127,7 +124,8 @@ public class Juego {
         return metaX;
     }
 
-    public GamePanel getPanel() {
+    public PanelJuego getPanel() {
         return panel;
     }
+    
 }
