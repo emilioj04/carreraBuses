@@ -11,10 +11,6 @@ Diagrama de clases del Juego Carrera De Buses
 ![image](https://github.com/user-attachments/assets/dcb899a4-8de7-4393-a69c-b132ea0d7104)
 
 
-ejecucion del juego Carrera de Buses
-
-![image](https://github.com/user-attachments/assets/6313b463-88da-4c74-b59b-61220e9f3ad8)
-
 Diagrama de clases del juego Carrera de Buses Actualizado
 
 Como ejecutar el juego:
@@ -40,3 +36,8 @@ Como ejecutar el juego:
 6. Ejecutar el proyecto
 
    ![image](https://github.com/user-attachments/assets/943c09ea-d200-4707-9a4f-70487c843326)
+
+   ejecucion del juego Carrera de Buses
+
+![image](https://github.com/user-attachments/assets/6313b463-88da-4c74-b59b-61220e9f3ad8)
+
