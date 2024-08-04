@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 
-public class Game {
+public class Juego {
     private Bus[] buses;
     private GamePanel panel;
     private int metaX = 890; // Posición inicial x de la meta
@@ -19,7 +19,7 @@ public class Game {
     private static final int EXTRA_MOVES = 100; // Número de movimientos adicionales
     private Clip audioClip; // Clip de audio para la reproducción
 
-    public Game(master window) {
+    public Juego(master window) {
         this.window = window;
         buses = new Bus[2];
         buses[0] = new Bus(100, 120, 5); // Bus rojo
@@ -46,7 +46,7 @@ public class Game {
     }
 
     public void start() {
-        window.addKeyListener(new KeyHandler(this)); // Agregar KeyHandler al JFrame
+        window.addKeyListener(new manejoTeclas(this)); // Agregar KeyHandler al JFrame
         window.setVisible(true);
 
         if (audioClip != null) {

@@ -11,7 +11,7 @@ import carrerabuses.*;
  */
 public class master extends javax.swing.JFrame {
 
-    private Game game;
+    private Juego game;
     
         
     public master() {
@@ -20,13 +20,13 @@ public class master extends javax.swing.JFrame {
     }
 
     private void initGame() {
-        game = new Game(this);
+        game = new Juego(this);
         gamePanel.setLayout(new java.awt.BorderLayout());
         gamePanel.add(game.getPanel(), java.awt.BorderLayout.CENTER);
        
         game.start();
         
-        addKeyListener(new KeyHandler(game));
+        addKeyListener(new manejoTeclas(game));
         setFocusable(true); 
         requestFocusInWindow();
     }
@@ -52,7 +52,7 @@ public class master extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        gamePanel.setBackground(new java.awt.Color(255, 51, 153));
+        gamePanel.setBackground(new java.awt.Color(255, 255, 255));
         gamePanel.setForeground(new java.awt.Color(255, 204, 0));
 
         javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);

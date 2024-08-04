@@ -3,12 +3,12 @@ package carrerabuses;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyHandler implements KeyListener {
-    private Game game;
+public class manejoTeclas implements KeyListener {
+    private Juego game;
     private boolean lPressed = false; 
     private boolean ePressed = false; 
 
-    public KeyHandler(Game game) {
+    public manejoTeclas(Juego game) {
         this.game = game;
     }
 

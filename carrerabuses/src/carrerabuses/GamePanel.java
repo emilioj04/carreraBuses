@@ -9,14 +9,14 @@ import java.net.URL;
 
 public class GamePanel extends JPanel {
 
-    private Game game;
+    private Juego game;
     private Image busRojoImage;
     private Image busVerdeImage;
     private Image backgroundImage;
     private int imageWidth = 100; 
     private int imageHeight = 50; 
 
-    public GamePanel(Game game) {
+    public GamePanel(Juego game) {
         this.game = game;
         try {
             // imagenes
