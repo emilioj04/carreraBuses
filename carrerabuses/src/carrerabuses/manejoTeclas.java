@@ -51,6 +51,5 @@ public class manejoTeclas implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // No es necesario implementar este método para el juego
     }
 }
