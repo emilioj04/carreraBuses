@@ -46,7 +46,7 @@ public class Juego {
     }
 
     public void iniciar() {
-        panel.addKeyListener(new manejoTeclas(this)); // Cambiado a panel
+        panel.addKeyListener(new manejoTeclas(this)); 
         pantalla.setVisible(true);      
 
         if (clipAudio != null) {
